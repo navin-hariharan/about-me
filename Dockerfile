@@ -1,14 +1,32 @@
-# Use the official Nginx image as the base image
-FROM nginx:latest
+# Build stage
+FROM node:20-alpine as build
 
-# Set the working directory to /usr/share/nginx/html
-WORKDIR /usr/share/nginx/html
+# Set working directory
+WORKDIR /app
 
-# Copy the contents of the local "static-site" directory to the container's working directory
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy project files
 COPY . .
 
-# Expose port 80 to allow incoming connections
+# Build the app
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine
+
+# Copy built assets from build stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copy nginx configuration (optional)
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
 EXPOSE 80
 
-# Start Nginx when the container is run
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
