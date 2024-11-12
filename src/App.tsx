@@ -52,7 +52,7 @@ export default function App() {
 
         <main className="container mx-auto px-4 sm:px-6 pt-16">
           <section className="min-h-[90vh] flex flex-col justify-center py-8 sm:py-16">
-            <div className="max-w-3xl mx-auto animate-fade-in">
+            <div className="max-w-3xl mx-left animate-fade-in">
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
                 <img
                   src="https://storage.rxresu.me/cm18ah1mk0h1umtv5564v0bh6/pictures/cm18ah1mk0h1umtv5564v0bh6.jpg"
