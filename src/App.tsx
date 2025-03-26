@@ -16,13 +16,14 @@ import SkillCard from './components/SkillCard';
 import CertificateCard from './components/CertificateCard';
 import ExperienceCard from './components/ExperienceCard';
 import TypedText from './components/TypedText';
-import { projects, skills, certificates, experiences } from './data';
+import { useProjects, skills, certificates, experiences } from './data';
 
 // Lazy load ParticlesBackground for better initial load performance
 const ParticlesBackground = lazy(() => import('./components/ParticlesBackground'));
 
 export default function App() {
   const { isDark, toggleTheme } = useTheme();
+  const projects = useProjects();
 
   return (
     <div
@@ -33,7 +34,7 @@ export default function App() {
       <Suspense fallback={null}>
         <ParticlesBackground isDark={isDark} />
       </Suspense>
-      
+
       <div className="relative z-10">
         <nav className="fixed w-full backdrop-blur-md bg-opacity-80 z-50 px-4 sm:px-6 py-4 flex justify-between items-center">
           <div className="w-8" />
@@ -55,7 +56,7 @@ export default function App() {
             <div className="max-w-3xl mx-left animate-fade-in">
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
                 <img
-                  src="https://storage.rxresu.me/cm18ah1mk0h1umtv5564v0bh6/pictures/cm18ah1mk0h1umtv5564v0bh6.jpg"
+                  src="https://huggingface.co/navin-hariharan/navin-hariharan-FLUX-LORA/resolve/main/samples/navin-hariharan.jpg"
                   alt="Navin Hariharan"
                   className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-yellow-400"
                   loading="lazy"
@@ -75,6 +76,7 @@ export default function App() {
                       strings={[
                         "Cybersecurity Expert",
                         "AI Developer",
+                        "Secure System Designer",
                         "Entrepreneur",
                         "Tech Innovator"
                       ]}
@@ -167,7 +169,7 @@ export default function App() {
             {
               title: "Featured Projects",
               content: (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {projects.map((project, index) => (
                     <ProjectCard key={index} project={project} isDark={isDark} />
                   ))}
