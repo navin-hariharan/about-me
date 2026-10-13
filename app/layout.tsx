@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://navin-hariharan.com'),
   title: 'Navin Hariharan — Security, systems & strategy',
   description: 'Navin Hariharan is a cybersecurity expert and systems builder in the United Kingdom, focused on making complex technology safer and more resilient.',
+  icons: { icon: '/navin-hariharan-avatar.png', apple: '/navin-hariharan-avatar.png' },
   openGraph: {
     title: 'Navin Hariharan — Security, systems & strategy',
     description: 'Building secure, resilient systems for a more confident digital future.',

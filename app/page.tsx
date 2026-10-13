@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <main>
       <header className="topbar wrap">
-        <a className="brand" href="#top" aria-label="Navin Hariharan home"><span className="brand-mark">N<span>.</span></span><span className="brand-name">NAVIN HARIHARAN<small>SECURITY · SYSTEMS · STRATEGY</small></span></a>
+        <a className="brand" href="#top" aria-label="Navin Hariharan home"><img className="brand-mark" src="/navin-hariharan-avatar.png" alt="" /><span className="brand-name">NAVIN HARIHARAN<small>SECURITY · SYSTEMS · STRATEGY</small></span></a>
         <nav className="nav" aria-label="Main navigation"><a href="#about">About</a><a href="#work">What I do</a><a href="#experience">Experience</a><a href="#contact">Contact</a></nav>
         <a className="top-cta" href="mailto:navin@navin-hariharan.com">Let’s talk <ArrowUpRight size={15} /></a>
       </header>
@@ -60,7 +60,7 @@ export default function Home() {
       <section className="section wrap credentials"><div className="credential-heading"><div><p className="eyebrow">04 / CREDENTIALS</p><h2>Earned, then <span>put to work.</span></h2></div><a className="text-link" href="/resume.pdf" target="_blank" rel="noreferrer">View résumé <ArrowUpRight size={15} /></a></div><div className="certificates">{certificates.map(cert => <a className="certificate" href={cert.href} target="_blank" rel="noreferrer" key={cert.name}><div className="cert-mark">{cert.mark}</div><div><span className="cert-issuer">{cert.issuer} · {cert.year}</span><h3>{cert.name}</h3><span className="cert-verify"><Check size={13} /> View certificate</span></div><ArrowUpRight className="cert-arrow" size={17} /></a>)}</div></section>
 
       <section className="contact" id="contact"><div className="contact-noise" /><div className="wrap contact-inner"><p className="eyebrow">HAVE SOMETHING IMPORTANT TO SOLVE?</p><h2>Let’s make the<br /><span>next move count.</span></h2><p>For thoughtful conversations about security, systems or building something better.</p><a className="button button-lime" href="mailto:navin@navin-hariharan.com">navin@navin-hariharan.com <ArrowUpRight size={16} /></a><div className="contact-socials"><a href="https://github.com/navin-hariharan" target="_blank" rel="noreferrer"><Github size={17} /> GitHub</a><a href="https://www.linkedin.com/in/navin-hariharan/" target="_blank" rel="noreferrer"><Linkedin size={17} /> LinkedIn</a><a href="mailto:navin@navin-hariharan.com"><Mail size={17} /> Email</a></div></div></section>
-      <footer className="footer wrap"><a className="brand" href="#top"><span className="brand-mark">N<span>.</span></span><span className="brand-name">NAVIN HARIHARAN<small>SECURITY · SYSTEMS · STRATEGY</small></span></a><span>© {new Date().getFullYear()} Navin Hariharan</span><a href="#top">BACK TO TOP ↑</a></footer>
+      <footer className="footer wrap"><a className="brand" href="#top" aria-label="Navin Hariharan home"><img className="brand-mark" src="/navin-hariharan-avatar.png" alt="" /><span className="brand-name">NAVIN HARIHARAN<small>SECURITY · SYSTEMS · STRATEGY</small></span></a><span>© {new Date().getFullYear()} Navin Hariharan</span><a href="#top">BACK TO TOP ↑</a></footer>
     </main>
   );
 }
