@@ -39,7 +39,8 @@ export default function Home() {
         <div className="hero-art" aria-label="Abstract visual representing secure connected systems">
           <div className="art-grid" /><div className="art-ring ring-a" /><div className="art-ring ring-b" />
           <div className="orbit-label label-a"><LockKeyhole size={14} /> TRUSTED BY DESIGN</div><div className="orbit-label label-b"><span className="mini-dot" /> SYSTEMS ONLINE</div>
-          <div className="core"><div className="core-inner"><Shield size={46} strokeWidth={1.2} /><span>DEFENCE<br />IN DEPTH</span></div></div>
+          <div className="portrait-frame"><img src="/navin-hariharan.jpg" alt="Portrait of Navin Hariharan" /><span className="portrait-scan" /><div className="portrait-caption"><span>01 — PROFILE</span><strong>NAVIN<br />HARIHARAN</strong></div></div>
+          <div className="portrait-tag"><span className="mini-dot" /> HUMAN FIRST<br />SECURITY ALWAYS</div>
           <div className="code-card"><div className="code-head"><span /><span /><span /><i>control-plane</i></div><div className="code-lines"><b>01</b><span><i>const</i> resilience = {'{'}</span><b>02</b><span>&nbsp;&nbsp;secure: <strong>true</strong>,</span><b>03</b><span>&nbsp;&nbsp;human: <strong>true</strong>,</span><b>04</b><span>&nbsp;&nbsp;future: <em>open</em></span><b>05</b><span>{'}'}</span></div></div>
           <div className="art-stamp">BUILT<br />FOR WHAT<br /><span>MATTERS</span><ArrowDownRight size={20} /></div>
         </div>
