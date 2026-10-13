@@ -1,14 +1,7 @@
-import React, { lazy, Suspense } from 'react';
+import { useEffect, useRef } from 'react';
 import {
-  Moon,
-  Sun,
-  Github,
-  Linkedin,
-  Instagram,
-  Mail,
-  MapPin,
-  Flag,
-  Download,
+  ArrowDown, ArrowRight, ArrowUpRight, Github, Linkedin, Mail, MapPin,
+  Moon, ShieldCheck, Sun,
 } from 'lucide-react';
 import { useTheme } from './hooks/useTheme';
 import ProjectCard from './components/ProjectCard';
@@ -18,210 +11,103 @@ import ExperienceCard from './components/ExperienceCard';
 import TypedText from './components/TypedText';
 import { useProjects, skills, certificates, experiences } from './data';
 
-// Lazy load ParticlesBackground for better initial load performance
-const ParticlesBackground = lazy(() => import('./components/ParticlesBackground'));
+const links = [
+  { href: 'https://github.com/navin-hariharan', icon: Github, label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/navin-hariharan/', icon: Linkedin, label: 'LinkedIn' },
+  { href: 'mailto:navin@navin-hariharan.com', icon: Mail, label: 'Email' },
+];
 
 export default function App() {
   const { isDark, toggleTheme } = useTheme();
   const projects = useProjects();
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const nodes = rootRef.current?.querySelectorAll<HTMLElement>('[data-reveal]');
+    if (!nodes?.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div
-      className={`min-h-screen relative transition-colors duration-300 ${
-        isDark ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
-      }`}
-    >
-      <Suspense fallback={null}>
-        <ParticlesBackground isDark={isDark} />
-      </Suspense>
-
-      <div className="relative z-10">
-        <nav className="fixed w-full backdrop-blur-md bg-opacity-80 z-50 px-4 sm:px-6 py-4 flex justify-between items-center">
-          <div className="w-8" />
-          <button
-            onClick={toggleTheme}
-            className={`p-2 rounded-full transition-colors ${
-              isDark
-                ? 'bg-gray-800 hover:bg-gray-700'
-                : 'bg-gray-200 hover:bg-gray-300'
-            }`}
-            aria-label="Toggle theme"
-          >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+    <div ref={rootRef} className={`portfolio ${isDark ? 'theme-dark' : 'theme-light'}`}>
+      <div className="ambient ambient-one" /><div className="ambient ambient-two" />
+      <header className="site-header">
+        <a className="wordmark" href="#home" aria-label="Navin Hariharan home"><span>NH</span><i>.</i></a>
+        <nav className="main-nav" aria-label="Main navigation">
+          <a href="#about">About</a><a href="#work">Work</a><a href="#expertise">Expertise</a>
+          <a href="#contact">Contact</a>
         </nav>
+        <div className="header-actions">
+          <span className="availability"><span /> Open to conversations</span>
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle colour theme">
+            {isDark ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+        </div>
+      </header>
 
-        <main className="container mx-auto px-4 sm:px-6 pt-16">
-          <section className="min-h-[90vh] flex flex-col justify-center py-8 sm:py-16">
-            <div className="max-w-3xl mx-left animate-fade-in">
-              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
-                <img
-                  src="https://huggingface.co/navin-hariharan/navin-hariharan-FLUX-LORA/resolve/main/samples/navin-hariharan.jpg"
-                  alt="Navin Hariharan"
-                  className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-yellow-400"
-                  loading="lazy"
-                  width={128}
-                  height={128}
-                />
-                <div className="flex-1 text-center sm:text-left">
-                  <h1 className="text-3xl sm:text-5xl font-bold mb-4 flex flex-col sm:flex-row items-center justify-center sm:justify-start">
-                    Hi, I'm{' '}
-                    <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent inline-flex items-center ml-0 sm:ml-2">
-                      Navin Hariharan
-                    </span>
-                  </h1>
-                  <div className="text-xl sm:text-2xl mb-2 opacity-80 flex items-center justify-center sm:justify-start gap-2">
-                    <span>I'm a</span>
-                    <TypedText
-                      strings={[
-                        "Cybersecurity Expert",
-                        "AI Developer",
-                        "Secure System Designer",
-                        "Entrepreneur",
-                        "Tech Innovator"
-                      ]}
-                      className="text-yellow-500"
-                    />
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 text-sm opacity-60">
-                    <div className="flex items-center">
-                      <MapPin size={16} />
-                      <span className="ml-1">Chennai, India</span>
-                    </div>
-                    <span className="hidden sm:inline mx-2">•</span>
-                    <div className="flex items-center">
-                      <Flag size={16} />
-                      <span className="ml-1">Indian</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p className="text-base sm:text-lg mb-8 opacity-80 text-center sm:text-left">
-                With over 8 years of experience in cybersecurity and 2 years in
-                AI, I lead as CEO of CyberHakz Pvt. Ltd. and Director of Alfa
-                Global Wealth Advisors Pvt. Ltd. Passionate about coding,
-                technology, and driving innovation in security solutions.
-              </p>
-              <div className="flex flex-wrap justify-center sm:justify-start gap-4 items-center">
-                {[
-                  {
-                    href: "https://github.com/navin-hariharan",
-                    icon: <Github size={24} />,
-                    label: "GitHub Profile"
-                  },
-                  {
-                    href: "https://www.linkedin.com/in/navin-hariharan/",
-                    icon: <Linkedin size={24} />,
-                    label: "LinkedIn Profile"
-                  },
-                  {
-                    href: "https://www.instagram.com/navin_hariharan/",
-                    icon: <Instagram size={24} />,
-                    label: "Instagram Profile"
-                  },
-                  {
-                    href: "mailto:navin@navin-hariharan.com",
-                    icon: <Mail size={24} />,
-                    label: "Email Contact"
-                  }
-                ].map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-2 rounded-full transition-colors ${
-                      isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-200'
-                    }`}
-                    aria-label={link.label}
-                  >
-                    {link.icon}
-                  </a>
-                ))}
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full transition-colors duration-300"
-                >
-                  <Download size={20} />
-                  <span>Download Resume</span>
-                </a>
-              </div>
+      <main>
+        <section className="hero page-width" id="home">
+          <div className="hero-copy">
+            <p className="eyebrow"><span className="eyebrow-line" /> SECURITY · SYSTEMS · STRATEGY</p>
+            <h1>Building a more<br /><span>secure digital</span><br />world.</h1>
+            <p className="hero-intro">I’m <strong>Navin Hariharan</strong> — a <TypedText strings={['cybersecurity expert', 'systems thinker', 'technology leader']} className="typed-accent" /> focused on making complex technology safer, simpler and more resilient.</p>
+            <div className="hero-meta"><span><MapPin size={15} /> United Kingdom</span><span className="meta-divider" /> <span>Founder · Security practitioner</span></div>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#work">Explore my work <ArrowRight size={17} /></a>
+              <a className="text-link" href="mailto:navin@navin-hariharan.com">Let’s talk <ArrowUpRight size={16} /></a>
             </div>
-          </section>
-
-          {[
-            {
-              title: "Experience",
-              content: (
-                <div className="space-y-6">
-                  {experiences.map((experience, index) => (
-                    <ExperienceCard
-                      key={index}
-                      experience={experience}
-                      isDark={isDark}
-                    />
-                  ))}
-                </div>
-              )
-            },
-            {
-              title: "Featured Projects",
-              content: (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {projects.map((project, index) => (
-                    <ProjectCard key={index} project={project} isDark={isDark} />
-                  ))}
-                </div>
-              )
-            },
-            {
-              title: "Certifications",
-              content: (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {certificates.map((certificate, index) => (
-                    <CertificateCard
-                      key={index}
-                      certificate={certificate}
-                      isDark={isDark}
-                    />
-                  ))}
-                </div>
-              )
-            },
-            {
-              title: "Skills & Technologies",
-              content: (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                  {skills.map((skill, index) => (
-                    <SkillCard key={index} skill={skill} isDark={isDark} />
-                  ))}
-                </div>
-              )
-            }
-          ].map((section, index) => (
-            <section key={index} className="py-12 sm:py-20">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12 text-center sm:text-left">
-                {section.title}
-              </h2>
-              {section.content}
-            </section>
-          ))}
-        </main>
-
-        <footer
-          className={`py-6 sm:py-8 mt-12 sm:mt-20 border-t ${
-            isDark ? 'border-gray-800' : 'border-gray-200'
-          }`}
-        >
-          <div className="container mx-auto px-4 sm:px-6 text-center">
-            <p className="opacity-60">
-              © {new Date().getFullYear()} Navin Hariharan. All rights reserved.
-            </p>
+            <div className="social-links">{links.map(({ href, icon: Icon, label }) => <a key={label} href={href} target={label === 'Email' ? undefined : '_blank'} rel="noreferrer" aria-label={label}><Icon size={18} /></a>)}</div>
           </div>
-        </footer>
-      </div>
+          <div className="hero-visual" aria-label="Portrait of Navin Hariharan">
+            <div className="portrait-frame"><img src="https://huggingface.co/navin-hariharan/navin-hariharan-FLUX-LORA/resolve/main/samples/navin-hariharan.jpg" alt="Navin Hariharan" fetchPriority="high" /><div className="portrait-shade" />
+              <div className="portrait-caption"><span className="caption-mark"><ShieldCheck size={17} /></span><span><b>Security by design</b><small>Practical. Human. Resilient.</small></span></div>
+            </div>
+            <div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="visual-index">01 <span>/</span> 04</div>
+          </div>
+          <a className="scroll-cue" href="#about"><ArrowDown size={15} /> SCROLL TO EXPLORE</a>
+        </section>
+
+        <section className="intro-band" id="about"><div className="page-width intro-grid" data-reveal>
+          <p className="section-kicker">01 / A LITTLE ABOUT ME</p>
+          <div><h2>Good security should<br /><span>make progress possible.</span></h2><p className="intro-text">I work at the intersection of cybersecurity, systems and emerging technology. My approach is grounded in curiosity and clear thinking: understand the real risk, build the right controls, and help people move forward with confidence.</p></div>
+          <div className="intro-aside"><span className="aside-rule"/><p>Curious by nature.<br />Defensive by design.</p></div>
+        </div></section>
+
+        <section className="content-section page-width" id="experience" data-reveal>
+          <div className="section-heading"><div><p className="section-kicker">02 / THE JOURNEY</p><h2>Experience</h2></div><p className="section-note">Building teams, businesses<br />and safer technology.</p></div>
+          <div className="experience-list">{experiences.map((experience, index) => <ExperienceCard key={`${experience.company}-${index}`} experience={experience} isDark={isDark} />)}</div>
+        </section>
+
+        <section className="content-section work-section" id="work"><div className="page-width" data-reveal>
+          <div className="section-heading"><div><p className="section-kicker">03 / SELECTED WORK</p><h2>Ideas into impact<span className="heading-dot">.</span></h2></div><a className="text-link" href="https://github.com/navin-hariharan" target="_blank" rel="noreferrer">More on GitHub <ArrowUpRight size={16} /></a></div>
+          <p className="section-lead">A selection of projects and experiments across security, AI and open source.</p>
+          {projects.length ? <div className="projects-grid">{projects.slice(0, 6).map((project: any, index: number) => <div className="project-wrap" key={`${project.title}-${index}`}><ProjectCard project={project} isDark={isDark} /></div>)}</div> : <div className="projects-loading"><span className="loading-pulse" /> Loading recent projects from GitHub and Hugging Face</div>}
+        </div></section>
+
+        <section className="content-section page-width" id="expertise" data-reveal>
+          <div className="section-heading"><div><p className="section-kicker">04 / THE TOOLKIT</p><h2>Areas of expertise</h2></div><p className="section-note">The right tool matters.<br />So does knowing why.</p></div>
+          <div className="skills-grid">{skills.map((skill, index) => <SkillCard key={`${skill.name}-${index}`} skill={skill} isDark={isDark} />)}</div>
+        </section>
+
+        <section className="content-section credentials-section page-width" data-reveal>
+          <div className="section-heading"><div><p className="section-kicker">CREDENTIALS</p><h2>Always learning.</h2></div></div>
+          <div className="cert-grid">{certificates.map((certificate, index) => <CertificateCard key={`${certificate.title}-${index}`} certificate={certificate} isDark={isDark} />)}</div>
+        </section>
+
+        <section className="contact-section" id="contact"><div className="page-width contact-inner" data-reveal>
+          <p className="section-kicker">HAVE A CHALLENGE IN MIND?</p><h2>Let’s make technology<br /><span>work better for everyone.</span></h2><a className="button button-primary" href="mailto:navin@navin-hariharan.com">Start a conversation <ArrowUpRight size={17} /></a>
+        </div></section>
+      </main>
+      <footer className="site-footer page-width"><a className="wordmark" href="#home"><span>NH</span><i>.</i></a><p>© {new Date().getFullYear()} Navin Hariharan</p><a href="#home">Back to top ↑</a></footer>
     </div>
   );
 }
