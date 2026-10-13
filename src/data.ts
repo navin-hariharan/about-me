@@ -119,7 +119,7 @@ export const experiences = [
     company: "CYBERHAKZ PRIVATE LIMITED",
     position: "Founder/CEO",
     date: "Mar 2021 - Present",
-    location: "India",
+    location: "United Kingdom",
     description:
       "Leading the company and managing operations, ensuring top security methods, and driving strategic growth initiatives.",
   },
@@ -127,7 +127,7 @@ export const experiences = [
     company: "ALFA GLOBAL WEALTH ADVISORS PRIVATE LIMITED",
     position: "Director",
     date: "Mar 2021 - Present",
-    location: "India",
+    location: "United Kingdom",
     description:
       "Providing strategic direction and oversight for wealth management operations.",
   },
