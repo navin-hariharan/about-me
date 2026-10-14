@@ -1,3 +1,6 @@
+"use client";
+
+import { useLayoutEffect } from 'react';
 import {
   ArrowDownRight, ArrowRight, ArrowUpRight, Braces, Check, Github,
   Linkedin, LockKeyhole, Mail, MoveUpRight, Network, Shield, Terminal,
@@ -20,6 +23,13 @@ const certificates = [
 ];
 
 export default function Home() {
+  useLayoutEffect(() => {
+    // A reload should replay the opening experience from the hero, regardless
+    // of the browser's scroll restoration preference.
+    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main>
       <header className="topbar wrap">
