@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navin Hariharan // Ethical Hacker &amp; AI Researcher</title>
+  <meta name="description" content="About Navin Hariharan an ethical hacker and AI researcher." />
+  <meta name="theme-color" content="#03050b" />
+  <!-- Flipped to "rust" by the Axum server when it renders this page; stays
+       "static" on plain file hosting so the front-end skips the backend call. -->
+  <meta name="served-by" content="static" />
+  <meta property="og:title" content="Navin Hariharan // Ethical Hacker & AI Researcher" />
+  <meta property="og:description" content="Security research, fine-tuned models and open-source tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/portrait.jpg" />
+  <link rel="icon" type="image/png" href="assets/logo-circle.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+  <!-- Fonts: JetBrains Mono for the terminal voice, Sora for clean UI text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Three.js is vendored locally (vendor/three.module.min.js) so the site is
+       fully self-contained and needs no build step and no CDN. -->
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+
+<body class="is-booting">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ BOOT SEQUENCE ============ -->
+  <div class="boot" id="boot" role="status" aria-live="polite" aria-label="Loading">
+    <div class="boot-inner">
+      <pre class="boot-log" id="boot-log" aria-hidden="true"></pre>
+      <div class="boot-bar" aria-hidden="true"><span id="boot-bar"></span></div>
+      <p class="boot-hint">Press any key to skip</p>
+    </div>
+  </div>
+
+  <!-- ============ AMBIENT LAYERS ============ -->
+  <canvas class="rain" id="rain" aria-hidden="true"></canvas>
+  <div class="fx-scanlines" aria-hidden="true"></div>
+  <div class="fx-grain" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="route" id="route" aria-hidden="true"><span id="route-text"></span></div>
+
+  <!-- ============ HUD HEADER ============ -->
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  <header class="hud">
+    <a class="logo" href="#top" aria-label="Navin Hariharan, back to top">
+      <img class="logo-mark" src="assets/logo-circle.png" alt="" width="34" height="34" /><span class="logo-path">Navin Hariharan</span>
+    </a>
+    <nav class="hud-nav" aria-label="Sections">
+      <a href="#ops" data-route>ops</a>
+      <a href="#projects" data-route>projects</a>
+      <a href="#arsenal" data-route>arsenal</a>
+      <a href="#log" data-route>log</a>
+      <a href="#contact" data-route>contact</a>
+    </nav>
+    <div class="hud-status mono">
+      <span class="lock"><i></i> TLS 1.3</span>
+      <span class="sess mono">session secure</span>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Sections" hidden>
+    <a href="#ops" data-route>01 ops</a>
+    <a href="#projects" data-route>02 projects</a>
+    <a href="#arsenal" data-route>03 arsenal</a>
+    <a href="#log" data-route>04 log</a>
+    <a href="#contact" data-route>05 contact</a>
+  </nav>
+
+  <!-- Section rail: shows where you are on the page -->
+  <nav class="rail" aria-label="Section progress">
+    <a href="#top" data-route data-rail="top"><span>00</span></a>
+    <a href="#ops" data-route data-rail="ops"><span>01</span></a>
+    <a href="#projects" data-route data-rail="projects"><span>02</span></a>
+    <a href="#arsenal" data-route data-rail="arsenal"><span>03</span></a>
+    <a href="#log" data-route data-rail="log"><span>04</span></a>
+    <a href="#contact" data-route data-rail="contact"><span>05</span></a>
+  </nav>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top" data-section="top" aria-labelledby="hero-title">
+      <svg class="circuit circuit-hero" aria-hidden="true" viewBox="0 0 600 400" preserveAspectRatio="none">
+        <path d="M0 80 H140 L170 110 H320 L350 80 H600" /><path d="M0 300 H90 L120 330 H260" />
+        <path d="M420 400 V320 L450 290 H600" /><circle cx="170" cy="110" r="3" /><circle cx="350" cy="80" r="3" /><circle cx="120" cy="330" r="3" />
+      </svg>
+
+      <div class="hero-copy">
+        <figure class="dossier" id="dossier">
+          <div class="dossier-photo" id="operator-photo">
+            <img src="assets/portrait.jpg" alt="Portrait of Navin Hariharan" id="portrait" width="160" height="206" fetchpriority="high" />
+            <span class="dossier-duo" aria-hidden="true"></span>
+            <span class="dossier-scan" aria-hidden="true"></span>
+            <span class="dossier-reticle" aria-hidden="true"><i></i><i></i></span>
+            <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span>
+            <span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+          </div>
+          <figcaption class="dossier-data mono">
+            <p class="eyebrow"><span class="blink-dot"></span> session://navin-hariharan</p>
+            <dl>
+              <div><dt>ID</dt><dd>NH-0xA1 · <span class="verified">VERIFIED</span></dd></div>
+              <div><dt>ROLE</dt><dd>Ethical Hacker · AI Researcher</dd></div>
+              <div><dt>CLEARANCE</dt><dd>CEH · Security+</dd></div>
+              <div><dt>FOCUS</dt><dd>Offensive Security · Applied AI</dd></div>
+            </dl>
+            <p class="dossier-status"><span class="pulse-sm"></span> AVAILABLE FOR ENGAGEMENTS</p>
+          </figcaption>
+        </figure>
+        <h1 class="hero-title" id="hero-title">
+          <span class="glitch" data-text="Navin Hariharan">Navin Hariharan</span>
+        </h1>
+        <p class="hero-role mono" aria-live="off">
+          <span class="prompt">&gt;</span> <span id="typer" class="typer"></span><span class="caret" aria-hidden="true">█</span>
+        </p>
+        <p class="hero-lede">I break systems so they can be rebuilt stronger, then teach models to spot what I found. Independent security &amp; MSc Cybersecurity, CEH and Security+.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary magnetic" href="#projects" data-route><span>./view_projects</span></a>
+        </div>
+      </div>
+
+      <div class="globe-wrap" id="globe-wrap">
+        <div class="globe" id="globe" role="img" aria-label="Rotating wireframe globe showing network nodes, connection arcs and threat pings"></div>
+        <div class="globe-hud mono" aria-hidden="true">
+          <div class="gh-top"><span>GLOBAL THREAT MAP</span><span class="live"><i></i>LIVE</span></div>
+          <div class="gh-stats">
+            <div><b id="threat-count">0</b><small>pings intercepted</small></div>
+            <div><b id="node-count">0</b><small>nodes online</small></div>
+            <div><b id="coord">00.00°N 00.00°E</b><small>cursor lock</small></div>
+          </div>
+          <ul class="gh-feed" id="threat-feed"></ul>
+        </div>
+      </div>
+
+      <a class="scroll-cue mono" href="#ops" data-route>scroll ↓ to initialise</a>
+    </section>
+
+    <!-- ============ OPS: terminal + counters ============ -->
+    <section class="section ops" id="ops" data-section="ops" aria-labelledby="ops-title">
+      <header class="section-head reveal">
+        <p class="section-tag mono">[01] /ops</p>
+        <h2 id="ops-title"><span class="scramble" data-scramble>Command Center</span></h2>
+        <p class="section-sub">A live shell into how I work. Watch it run, or click inside and type <kbd>help</kbd>.</p>
+      </header>
+
+      <div class="ops-grid">
+        <div class="terminal glass reveal" id="terminal">
+          <div class="term-bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="term-title mono">navin@navin-hariharan: ~</span>
+            <span class="term-mode mono" id="term-mode">AUTO</span>
+          </div>
+          <div class="term-body mono" id="term-body" aria-hidden="true"></div>
+          <form class="term-input mono" id="term-form" autocomplete="off">
+            <label for="term-cmd"><span class="ps1">navin@navin-hariharan:~$</span></label>
+            <input id="term-cmd" type="text" spellcheck="false" aria-label="Type a terminal command, for example help" placeholder="type help" />
+          </form>
+          <p class="sr-only" id="term-sr" aria-live="polite"></p>
+        </div>
+
+        <div class="counters" id="counters"></div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section projects" id="projects" data-section="projects" aria-labelledby="projects-title">
+      <div class="hexfield parallax" data-speed="0.15" aria-hidden="true"></div>
+      <header class="section-head reveal">
+        <p class="section-tag mono">[02] /projects</p>
+        <h2 id="projects-title"><span class="scramble" data-scramble>Classified Files</span></h2>
+        <p class="section-sub">Hover to decrypt. Open a file to read the full brief.</p>
+      </header>
+
+      <div class="filters mono reveal" role="group" aria-label="Filter projects" id="filters"></div>
+      <div class="project-grid" id="project-grid"></div>
+
+      <div class="archive glass reveal">
+        <h3 class="mono">$ ls ~/archive</h3>
+        <ul id="archive"></ul>
+      </div>
+    </section>
+
+    <!-- ============ ARSENAL: skills ============ -->
+    <section class="section arsenal" id="arsenal" data-section="arsenal" aria-labelledby="arsenal-title">
+      <header class="section-head reveal">
+        <p class="section-tag mono">[03] /arsenal</p>
+        <h2 id="arsenal-title"><span class="scramble" data-scramble>Arsenal</span></h2>
+        <p class="section-sub">Six modules, each one flips to show the tools inside.</p>
+      </header>
+      <div class="cap-grid" id="cap-grid"></div>
+      <div class="hex-wrap reveal" aria-label="Skill tags">
+        <ul class="hex-grid" id="hex-grid"></ul>
+        <ul class="hex-legend mono" aria-hidden="true">
+          <li class="sec">security</li><li class="ai">ai / ml</li><li class="dev">dev</li><li class="ops">ops</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ LOG: experience + certs ============ -->
+    <section class="section log" id="log" data-section="log" aria-labelledby="log-title">
+      <header class="section-head reveal">
+        <p class="section-tag mono">[04] /var/log/career</p>
+        <h2 id="log-title"><span class="scramble" data-scramble>System Log</span></h2>
+      </header>
+      <div class="log-layout">
+        <svg class="log-trace" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 20 1000"><path id="log-path" d="M10 0 V1000" /></svg>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+
+      <h3 class="certs-title mono reveal">$ gpg --list-keys <span class="dim"># clearances</span></h3>
+      <div class="certs" id="certs"></div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact" data-section="contact" aria-labelledby="contact-title">
+      <svg class="circuit circuit-contact" aria-hidden="true" viewBox="0 0 600 300" preserveAspectRatio="none">
+        <path d="M0 40 H200 L230 70 H600" /><path d="M0 260 H320 L350 230 H600" /><circle cx="230" cy="70" r="3" /><circle cx="350" cy="230" r="3" />
+      </svg>
+      <header class="section-head reveal">
+        <p class="section-tag mono">[05] /contact</p>
+        <h2 id="contact-title"><span class="scramble" data-scramble>Open a Secure Channel</span></h2>
+        <p class="section-sub">The channel's already up. Here's where I'm at, what I'm open to, and the fastest ways to reach me.</p>
+      </header>
+
+      <div class="contact-grid">
+        <div class="channel glass reveal" id="channel">
+          <p class="ch-head mono"><span class="pulse-sm"></span> secure channel // established</p>
+          <ul class="ch-check mono" aria-label="Channel status">
+            <li><b>[ ok ]</b> identity<span>NH-0xA1 · verified</span></li>
+            <li><b>[ ok ]</b> endpoint<span>navin-hariharan.com</span></li>
+            <li><b>[ ok ]</b> response<span>usually within 24h</span></li>
+            <li><b>[ ok ]</b> encryption<span>PGP on request</span></li>
+          </ul>
+          <p class="ch-sub mono"><span class="prompt">&gt;</span> cat ~/open_to.txt</p>
+          <ul class="ch-open">
+            <li>Penetration testing &amp; red-team engagements</li>
+            <li>Applied-AI &amp; model fine-tuning collaborations</li>
+            <li>Security research, talks &amp; open-source work</li>
+          </ul>
+        </div>
+
+        <div class="links reveal">
+          <a class="email-big mono" id="email-link" href="#">navin@navin-hariharan.com</a>
+          <button class="copy mono" id="copy-email" type="button">[ copy address ]</button>
+          <ul class="socials" id="socials"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <span>© <span id="year"></span> Navin Hariharan</span>
+    <span class="dim" id="stack-credit"></span>
+    <a href="#top" data-route>↑ return to root</a>
+  </footer>
+
+  <noscript><p class="noscript">This site uses JavaScript for its interactive parts. Reach me at navin@navin-hariharan.com.</p></noscript>
+</body>
+</html>
